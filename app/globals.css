@@ -435,6 +435,14 @@
 		@apply bg-brand text-white shadow-drop-2 !important;
 	}
 
+	.sidebar-nav-item {
+		@apply transition-all duration-200;
+	}
+
+	.sidebar-nav-item:hover:not(.shad-active) {
+		@apply bg-brand/5 scale-105;
+	}
+
 	/* Sort */
 	.sort-select {
 		@apply shad-no-focus h-11 w-full rounded-[8px] border-transparent bg-white !shadow-sm sm:w-[210px] !important;
