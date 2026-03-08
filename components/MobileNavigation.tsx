@@ -53,7 +53,7 @@ const MobileNavigation = ({
 						height={30}
 					/>
 				</SheetTrigger>
-				<SheetContent className="shad-sheet h-screen px-3">
+				<SheetContent className="shad-sheet h-screen px-3 flex flex-col">
 					<SheetTitle>
 						<div className="header-user">
 							<Image
@@ -72,18 +72,19 @@ const MobileNavigation = ({
 						</div>
 						<Separator className="mb-4 bg-light-200/20" />
 					</SheetTitle>
-					<nav className="mobile-nav">
+					<nav className="mobile-nav flex-1 overflow-y-auto">
 						<ul className="mobile-nav-list">
 							{navItems.map(({ url, name, icon }) => (
 								<Link
 									key={name}
 									href={url}
 									className="lg:w-full"
+									onClick={() => setOpen(false)}
 								>
 									<li
 										className={cn(
 											"mobile-nav-item",
-											pathname === url && "shad-active"
+											pathname === url && "shad-active",
 										)}
 									>
 										<Image
@@ -94,7 +95,7 @@ const MobileNavigation = ({
 											className={cn(
 												"nav-icon",
 												pathname === url &&
-													"nav-icon-active"
+													"nav-icon-active",
 											)}
 										/>
 										<p>{name}</p>
@@ -103,8 +104,8 @@ const MobileNavigation = ({
 							))}
 						</ul>
 					</nav>
-					<Separator className="my-5 bg-light-200/20" />{" "}
-					<div className="flex flex-col justify-between gap-5 pb-5">
+					<Separator className="my-5 bg-light-200/20" />
+					<div className="flex flex-col gap-5 pb-5">
 						<FileUploader ownerId={ownerId} accountId={accountId} />
 						<Button
 							type="submit"

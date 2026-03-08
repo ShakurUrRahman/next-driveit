@@ -84,12 +84,12 @@ export const Chart = ({ used = 0 }: { used: number }) => {
 													{used &&
 													calculatePercentage(used)
 														? calculatePercentage(
-																used
+																used,
 															)
 																.toString()
 																.replace(
 																	/^0+/,
-																	""
+																	"",
 																)
 														: "0"}
 													%
@@ -110,7 +110,7 @@ export const Chart = ({ used = 0 }: { used: number }) => {
 					</RadialBarChart>
 				</ChartContainer>
 			</CardContent>
-			<CardHeader className="chart-details">
+			<CardHeader className="chart-details ">
 				<CardTitle className="chart-title">Available Storage</CardTitle>
 				<CardDescription className="chart-description">
 					{used ? convertFileSize(used) : "2GB"} / 2GB
