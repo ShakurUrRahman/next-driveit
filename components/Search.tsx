@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,8 @@ import Thumbnail from "@/components/Thumbnail";
 import FormattedDateTime from "@/components/FormattedDateTime";
 import { useDebounce } from "use-debounce";
 import { getFiles } from "@/lib/actions/file.actions";
+import { X } from "lucide-react";
+
 const Search = () => {
 	const [query, setQuery] = useState("");
 	const searchParams = useSearchParams();
@@ -19,6 +21,7 @@ const Search = () => {
 	const router = useRouter();
 	const path = usePathname();
 	const [debouncedQuery] = useDebounce(query, 300);
+	const searchRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		const fetchFiles = async () => {
@@ -45,17 +48,42 @@ const Search = () => {
 		}
 	}, [searchQuery]);
 
+	// Handle click outside
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (
+				searchRef.current &&
+				!searchRef.current.contains(event.target as Node)
+			) {
+				setOpen(false);
+				setQuery("");
+				setResults([]);
+			}
+		};
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, []);
+
 	const handleClickItem = (file: Models.Document) => {
 		setOpen(false);
 		setResults([]);
 
 		router.push(
-			`/${file.type === "video" || file.type === "audio" ? "media" : file.type + "s"}?query=${query}`
+			`/${file.type === "video" || file.type === "audio" ? "media" : file.type + "s"}?query=${query}`,
 		);
 	};
 
+	const handleClear = () => {
+		setQuery("");
+		setResults([]);
+		setOpen(false);
+	};
+
 	return (
-		<div className="search">
+		<div className="search" ref={searchRef}>
 			<div className="search-input-wrapper">
 				<Image
 					src="/assets/icons/search.svg"
@@ -69,6 +97,16 @@ const Search = () => {
 					className="search-input"
 					onChange={(e) => setQuery(e.target.value)}
 				/>
+
+				{query && (
+					<button
+						onClick={handleClear}
+						className="absolute right-3 top-1/2 -translate-y-1/2 text-light-200 hover:text-light-100 transition-colors"
+						aria-label="Clear search"
+					>
+						<X />
+					</button>
+				)}
 
 				{open && (
 					<ul className="search-result">

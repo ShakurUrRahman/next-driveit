@@ -38,11 +38,11 @@ const MobileNavigation = ({
 	return (
 		<header className="mobile-header">
 			<Image
-				src="/assets/icons/logo-full-brand.svg"
+				src="/assets/icons/Group1.png"
 				alt="logo"
-				width={120}
-				height={52}
-				className="h-auto"
+				width={150}
+				height={45}
+				className="h-auto mt-1"
 			/>
 			<Sheet open={open} onOpenChange={setOpen}>
 				<SheetTrigger>
@@ -53,7 +53,7 @@ const MobileNavigation = ({
 						height={30}
 					/>
 				</SheetTrigger>
-				<SheetContent className="shad-sheet h-screen px-3 flex flex-col">
+				<SheetContent className="shad-sheet h-full px-3 flex flex-col">
 					<SheetTitle>
 						<div className="header-user">
 							<Image
@@ -104,8 +104,8 @@ const MobileNavigation = ({
 							))}
 						</ul>
 					</nav>
-					<Separator className="my-5 bg-light-200/20" />
-					<div className="flex flex-col gap-5 pb-5">
+					<Separator className="my-2 bg-light-200/20" />
+					<div className="flex flex-col gap-2 mb-10">
 						<FileUploader ownerId={ownerId} accountId={accountId} />
 						<Button
 							type="submit"
