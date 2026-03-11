@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/sheet";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Separator } from "./ui/separator";
 import Link from "next/link";
 import { navItems } from "@/constants";
@@ -16,6 +16,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import FileUploader from "./FileUploader";
 import { signOutUser } from "@/lib/actions/user.actions";
+import { useTheme } from "next-themes";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface Props {
 	$id: string;
@@ -34,95 +36,130 @@ const MobileNavigation = ({
 }: Props) => {
 	const [open, setOpen] = useState(false);
 	const pathname = usePathname();
+	const { theme } = useTheme();
+	const [mounted, setMounted] = useState(false);
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	const handleSignOut = async () => {
+		await signOutUser();
+	};
 
 	return (
 		<header className="mobile-header">
-			<Image
-				src="/assets/icons/Group1.png"
-				alt="logo"
-				width={150}
-				height={45}
-				className="h-auto mt-1"
-			/>
-			<Sheet open={open} onOpenChange={setOpen}>
-				<SheetTrigger>
+			<div>
+				{mounted ? (
 					<Image
-						src="/assets/icons/menu.svg"
-						alt="Search"
-						width={30}
-						height={30}
+						src={
+							theme === "dark"
+								? "/assets/icons/Group2.png"
+								: "/assets/icons/Group1.png"
+						}
+						alt="logo"
+						width={150}
+						height={45}
+						className="h-auto mt-1"
 					/>
-				</SheetTrigger>
-				<SheetContent className="shad-sheet h-full px-3 flex flex-col">
-					<SheetTitle>
-						<div className="header-user">
-							<Image
-								src={avatar}
-								alt="avatar"
-								width={44}
-								height={44}
-								className="header-user-avatar"
-							/>
-							<div className="sm:hidden lg:block">
-								<p className="subtitle-2 capitalize">
-									{fullName}
-								</p>
-								<p className="caption">{email}</p>
+				) : (
+					<div className="h-[45px] w-[150px]" />
+				)}
+			</div>
+			<div className="flex justify-between items-center gap-3">
+				<ThemeToggle />
+				<Sheet open={open} onOpenChange={setOpen}>
+					<SheetTrigger>
+						<Image
+							src="/assets/icons/menu.svg"
+							alt="Search"
+							width={30}
+							height={30}
+						/>
+					</SheetTrigger>
+					<SheetContent className="shad-sheet h-full px-3 flex flex-col">
+						<SheetTitle>
+							<div className="header-user">
+								<Image
+									src={avatar}
+									alt="avatar"
+									width={44}
+									height={44}
+									className="header-user-avatar"
+								/>
+								<div className="sm:hidden lg:block">
+									<p className="subtitle-2 capitalize">
+										{fullName}
+									</p>
+									<p className="caption">{email}</p>
+								</div>
 							</div>
-						</div>
-						<Separator className="mb-4 bg-light-200/20" />
-					</SheetTitle>
-					<nav className="mobile-nav flex-1 overflow-y-auto">
-						<ul className="mobile-nav-list">
-							{navItems.map(({ url, name, icon }) => (
-								<Link
-									key={name}
-									href={url}
-									className="lg:w-full"
-									onClick={() => setOpen(false)}
-								>
-									<li
-										className={cn(
-											"mobile-nav-item",
-											pathname === url && "shad-active",
-										)}
+							<Separator className="mb-4 bg-light-200/20" />
+						</SheetTitle>
+						<nav className="mobile-nav flex-1 overflow-y-auto">
+							<ul className="mobile-nav-list">
+								{navItems.map(({ url, name, icon }) => (
+									<Link
+										key={name}
+										href={url}
+										className="lg:w-full"
+										onClick={() => setOpen(false)}
 									>
-										<Image
-											src={icon}
-											alt={name}
-											width={24}
-											height={24}
+										<li
 											className={cn(
-												"nav-icon",
+												"mobile-nav-item",
 												pathname === url &&
-													"nav-icon-active",
+													"shad-active",
 											)}
-										/>
-										<p>{name}</p>
-									</li>
-								</Link>
-							))}
-						</ul>
-					</nav>
-					<Separator className="my-2 bg-light-200/20" />
-					<div className="flex flex-col gap-2 mb-10">
-						<FileUploader ownerId={ownerId} accountId={accountId} />
-						<Button
-							type="submit"
-							className="mobile-sign-out-button"
-							onClick={async () => await signOutUser()}
-						>
-							<Image
-								src="/assets/icons/logout.svg"
-								alt="logo"
-								width={24}
-								height={24}
+										>
+											<Image
+												src={icon}
+												alt={name}
+												width={24}
+												height={24}
+												className={cn(
+													"nav-icon",
+													pathname === url &&
+														"nav-icon-active",
+												)}
+											/>
+											<p>{name}</p>
+										</li>
+									</Link>
+								))}
+							</ul>
+						</nav>
+						<Separator className="my-2 bg-light-200/20" />
+						<div className="flex flex-col gap-2 mb-10">
+							<FileUploader
+								ownerId={ownerId}
+								accountId={accountId}
 							/>
-							<p>Logout</p>
-						</Button>
-					</div>
-				</SheetContent>
-			</Sheet>
+							<Button
+								type="button"
+								className="mobile-sign-out-button"
+								onClick={handleSignOut}
+							>
+								{mounted ? (
+									<Image
+										src={
+											theme === "dark"
+												? "/assets/icons/logout-white.svg"
+												: "/assets/icons/logout.svg"
+										}
+										alt="logo"
+										width={24}
+										height={24}
+									/>
+								) : (
+									<div className="w-6 h-6" />
+								)}
+								<p>Logout</p>
+							</Button>
+						</div>
+					</SheetContent>
+				</Sheet>
+			</div>
 		</header>
 	);
 };

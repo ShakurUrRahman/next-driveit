@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const poppins = Poppins({
 	subsets: ["latin"],
@@ -9,8 +10,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-	title: "StoreIt",
-	description: "StoreIt - The only storage solution you need.",
+	title: "DriveIt",
+	description: "DriveIt - The only storage solution you need.",
 };
 
 export default function RootLayout({
@@ -19,9 +20,16 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<body className={`${poppins.variable} font-poppins antialiased`}>
-				{children}
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="dark"
+					enableSystem={false}
+					disableTransitionOnChange
+				>
+					{children}
+				</ThemeProvider>
 			</body>
 		</html>
 	);

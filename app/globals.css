@@ -8,7 +8,12 @@
 	}
 
 	body {
-		@apply bg-white text-dark-200 min-h-screen;
+		@apply bg-white text-dark-200 min-h-screen transition-colors;
+	}
+
+	/* Dark mode body styles */
+	.dark body {
+		@apply bg-dark-100 text-light-300;
 	}
 
 	/* Remove scrollbar */
@@ -28,13 +33,13 @@
 	}
 
 	.remove-scrollbar::-webkit-scrollbar-thumb:hover {
-		/* background: #1e2238; */
 		background: transparent;
 	}
 
 	.recharts-responsive-container {
 		height: initial !important;
 	}
+
 	:root {
 		--background: 0 0% 100%;
 		--foreground: 0 0% 3.9%;
@@ -62,6 +67,7 @@
 		--chart-5: 27 87% 67%;
 		--radius: 0.5rem;
 	}
+
 	.dark {
 		--background: 0 0% 3.9%;
 		--foreground: 0 0% 98%;
@@ -158,7 +164,7 @@
 		@apply text-red body-2 ml-4 !important;
 	}
 	.shad-alert-dialog {
-		@apply space-y-4 max-w-[95%] sm:w-fit rounded-xl md:rounded-[30px] px-4 md:px-8 py-10 bg-white outline-none !important;
+		@apply space-y-4 max-w-[95%] sm:w-fit rounded-xl md:rounded-[30px] px-4 md:px-8 py-10 bg-white dark:bg-dark-200 outline-none !important;
 	}
 	.shad-submit-btn {
 		@apply bg-brand button hover:bg-brand-100 transition-all rounded-full !important;
@@ -167,7 +173,7 @@
 		@apply w-full flex gap-1 sm:gap-2 justify-between !important;
 	}
 	.shad-otp-slot {
-		@apply text-[40px] font-medium rounded-xl ring-brand shadow-drop-1 text-brand-100 justify-center flex border-2 border-light-300 size-12 md:size-16 gap-5 !important;
+		@apply text-[40px] font-medium rounded-xl ring-brand shadow-drop-1 text-brand-100 justify-center flex border-2 border-light-300 dark:border-dark-200 size-12 md:size-16 gap-5 !important;
 	}
 
 	.shad-sheet {
@@ -181,7 +187,7 @@
 		@apply cursor-pointer !important;
 	}
 	.shad-dialog {
-		@apply rounded-[26px] w-[90%] max-w-[400px] px-6 py-8   !important;
+		@apply rounded-[26px] w-[90%] max-w-[400px] px-6 py-8 bg-white dark:bg-dark-200 !important;
 	}
 	.shad-chart-title {
 		@apply text-white !important;
@@ -192,7 +198,7 @@
 
 	/* Sidebar & MobileNavigation */
 	.nav-icon {
-		@apply w-6 filter invert opacity-25 !important;
+		@apply w-6 filter invert opacity-25 dark:invert-0 dark:opacity-50 !important;
 	}
 	.nav-icon-active {
 		@apply invert-0 opacity-100 !important;
@@ -202,7 +208,7 @@
 
 	/* Root Layout */
 	.main-content {
-		@apply remove-scrollbar h-full flex-1 overflow-auto bg-light-400 px-5 py-7 sm:mr-7 sm:rounded-[30px] md:mb-7 md:px-9 md:py-10 !important;
+		@apply remove-scrollbar h-full flex-1 overflow-auto bg-light-400 dark:bg-dark-100 px-5 py-7 sm:mr-7 sm:rounded-[30px] md:mb-7 md:px-9 md:py-10 transition-colors !important;
 	}
 
 	/* Dashboard */
@@ -213,7 +219,7 @@
 		@apply mt-6 grid grid-cols-1 gap-4 xl:mt-10 xl:grid-cols-2 xl:gap-9 !important;
 	}
 	.dashboard-summary-card {
-		@apply relative mt-6 rounded-[20px] bg-white p-5 transition-all hover:scale-105 !important;
+		@apply relative mt-6 rounded-[20px] bg-white dark:bg-dark-200 p-5 transition-all hover:scale-105 !important;
 	}
 	.summary-type-icon {
 		@apply absolute -left-3 top-[-25px] z-10 w-[190px] object-contain !important;
@@ -225,16 +231,16 @@
 		@apply h5 relative z-20 text-center !important;
 	}
 	.dashboard-recent-files {
-		@apply h-full rounded-[20px] bg-white p-5 xl:p-8 !important;
+		@apply h-full rounded-[20px] bg-white dark:bg-dark-200 p-5 xl:p-8 transition-colors !important;
 	}
 	.recent-file-details {
 		@apply flex w-full flex-col xl:flex-row xl:justify-between !important;
 	}
 	.recent-file-name {
-		@apply subtitle-2 line-clamp-1 w-full text-light-100 sm:max-w-[200px] lg:max-w-[250px] !important;
+		@apply subtitle-2 line-clamp-1 w-full text-light-100 dark:text-light-300 sm:max-w-[200px] lg:max-w-[250px] !important;
 	}
 	.recent-file-date {
-		@apply body-2 text-light-100/80 !important;
+		@apply body-2 text-light-100/80 dark:text-light-300/80 !important;
 	}
 	.empty-list {
 		@apply body-1 mt-10 text-center text-light-200 !important;
@@ -256,16 +262,16 @@
 
 	/* ActionsDropdown */
 	.rename-input-field {
-		@apply body-2 shad-no-focus h-[52px] w-full rounded-full border px-4 shadow-drop-1 !important;
+		@apply body-2 shad-no-focus h-[52px] w-full rounded-full border px-4 shadow-drop-1 dark:bg-dark-200 !important;
 	}
 	.delete-confirmation {
-		@apply text-center text-light-100 !important;
+		@apply text-center text-light-100 dark:text-light-300 !important;
 	}
 	.delete-file-name {
 		@apply font-medium text-brand-100 !important;
 	}
 	.modal-cancel-button {
-		@apply h-[52px] flex-1 rounded-full bg-white text-light-100 hover:bg-transparent !important;
+		@apply h-[52px] flex-1 rounded-full bg-white dark:bg-dark-100 text-light-100 dark:text-light-300 hover:bg-transparent !important;
 	}
 	.modal-submit-button {
 		@apply primary-btn !mx-0 h-[52px] w-full flex-1 !important;
@@ -273,10 +279,10 @@
 
 	/* ActionsModalContent */
 	.file-details-thumbnail {
-		@apply !mb-1 flex items-center gap-3 rounded-xl border border-light-200/40 bg-light-400/50 p-3 !important;
+		@apply !mb-1 flex items-center gap-3 rounded-xl border border-light-200/40 dark:border-dark-100 bg-light-400/50 dark:bg-dark-100/50 p-3 !important;
 	}
 	.file-details-label {
-		@apply body-2 w-[30%] text-light-100 !important;
+		@apply body-2 w-[30%] text-light-100 dark:text-light-300 !important;
 	}
 	.file-details-value {
 		@apply subtitle-2 flex-1 !important;
@@ -286,10 +292,10 @@
 		@apply !mt-2 space-y-2 !important;
 	}
 	.share-input-field {
-		@apply body-2 shad-no-focus h-[52px] w-full rounded-full border px-4 shadow-drop-1 !important;
+		@apply body-2 shad-no-focus h-[52px] w-full rounded-full border px-4 shadow-drop-1 dark:bg-dark-200 !important;
 	}
 	.share-remove-user {
-		@apply rounded-full bg-transparent text-light-100 shadow-none hover:bg-transparent !important;
+		@apply rounded-full bg-transparent text-light-100 dark:text-light-300 shadow-none hover:bg-transparent !important;
 	}
 	.remove-icon {
 		@apply aspect-square rounded-full !important;
@@ -300,7 +306,7 @@
 		@apply flex max-h-[800px] w-full max-w-[580px] flex-col justify-center space-y-6 transition-all lg:h-full lg:space-y-8 !important;
 	}
 	.form-title {
-		@apply h1 text-center text-light-100 md:text-left !important;
+		@apply h1 text-center text-light-100 dark:text-light-300 md:text-left !important;
 	}
 	.form-submit-button {
 		@apply primary-btn h-[66px] !important;
@@ -311,10 +317,10 @@
 
 	/* Card */
 	.file-card {
-		@apply flex cursor-pointer flex-col gap-6 rounded-[18px] bg-white p-5 shadow-sm transition-all hover:shadow-drop-3 !important;
+		@apply flex cursor-pointer flex-col gap-6 rounded-[18px] bg-white dark:bg-dark-200 p-5 shadow-sm transition-all hover:shadow-drop-3 !important;
 	}
 	.file-card-details {
-		@apply flex flex-col gap-2 text-light-100 !important;
+		@apply flex flex-col gap-2 text-light-100 dark:text-light-300 !important;
 	}
 
 	/* Chart */
@@ -342,13 +348,13 @@
 
 	/* FileUploader */
 	.uploader-button {
-		@apply primary-btn h-[52px] gap-2 px-10 shadow-drop-1 w-full !important;
+		@apply primary-btn h-[52px] dark:text-light-300  gap-2 px-10 shadow-drop-1 w-full !important;
 	}
 	.uploader-preview-list {
-		@apply fixed bottom-10 right-10 z-50 flex size-full h-fit max-w-[480px] flex-col gap-3 rounded-[20px] bg-white p-7 shadow-drop-3 !important;
+		@apply fixed bottom-10 right-10 z-50 flex size-full h-fit max-w-[480px] flex-col gap-3 rounded-[20px] bg-white dark:bg-dark-200 dark:text-light-300 p-7 shadow-drop-3 !important;
 	}
 	.uploader-preview-item {
-		@apply flex items-center justify-between  gap-3 rounded-xl p-3 shadow-drop-3 !important;
+		@apply flex items-center justify-between gap-3 rounded-xl p-3 shadow-drop-3 !important;
 	}
 	.preview-item-name {
 		@apply subtitle-2 mb-2 line-clamp-1 max-w-[300px] !important;
@@ -366,15 +372,15 @@
 		@apply flex-center min-w-fit gap-4 !important;
 	}
 	.sign-out-button {
-		@apply flex-center h-[52px] min-w-[54px] items-center rounded-full bg-brand/10 p-0 text-brand shadow-none transition-all hover:bg-brand/20 !important;
+		@apply flex-center dark:bg-brand dark:hover:bg-brand-100 h-[52px] min-w-[54px] items-center rounded-full bg-brand/10 p-0 text-brand shadow-none transition-all hover:bg-brand/20 !important;
 	}
 
 	/* Mobile Navigation */
 	.mobile-header {
-		@apply flex h-[60px] justify-between px-5 sm:hidden !important;
+		@apply flex items-center h-[60px] justify-between px-5 sm:hidden !important;
 	}
 	.header-user {
-		@apply my-3 flex items-center gap-2 rounded-full p-1 text-light-100 sm:justify-center sm:bg-brand/10 lg:justify-start lg:p-3 !important;
+		@apply my-3 flex items-center gap-2 rounded-full p-1 text-light-100 dark:text-light-300 sm:justify-center sm:bg-brand/10 lg:justify-start lg:p-3 !important;
 	}
 	.header-user-avatar {
 		@apply aspect-square w-10 rounded-full object-cover !important;
@@ -386,15 +392,15 @@
 		@apply flex flex-1 flex-col gap-4 !important;
 	}
 	.mobile-nav-item {
-		@apply flex text-light-100 gap-4 w-full justify-start items-center h5 px-6 h-[52px] rounded-full !important;
+		@apply flex text-light-100 dark:text-light-300 gap-4 w-full justify-start items-center h5 px-6 h-[52px] rounded-full !important;
 	}
 	.mobile-sign-out-button {
-		@apply h5 flex h-[52px] w-full items-center gap-4 rounded-full bg-brand/10 px-6 text-brand shadow-none transition-all hover:bg-brand/20 !important;
+		@apply h5 flex h-[52px] w-full items-center gap-4 rounded-full bg-brand/10 px-6 dark:text-light-300 dark:border dark:border-light-300 text-brand shadow-none transition-all hover:bg-brand/20 !important;
 	}
 
 	/* OTP Modal */
 	.otp-close-button {
-		@apply absolute -right-1 -top-7 cursor-pointer sm:-right-2 sm:-top-4  !important;
+		@apply absolute -right-1 -top-7 cursor-pointer sm:-right-2 sm:-top-4 !important;
 	}
 
 	/* Search */
@@ -402,30 +408,30 @@
 		@apply relative w-full md:max-w-[480px] !important;
 	}
 	.search-input-wrapper {
-		@apply flex h-[52px] flex-1 items-center gap-3 rounded-full px-4 shadow-drop-3 !important;
+		@apply flex h-[52px] flex-1 items-center gap-3 rounded-full px-4 shadow-drop-3 bg-white dark:bg-dark-200 transition-colors !important;
 	}
 	.search-input {
-		@apply body-2 shad-no-focus  placeholder:body-1 w-full border-none p-0 shadow-none placeholder:text-light-200 !important;
+		@apply body-2 shad-no-focus placeholder:body-1 w-full border-none p-0 shadow-none placeholder:text-light-200 dark:placeholder:text-light-200 !important;
 	}
 	.search-result {
-		@apply absolute left-0 top-16 z-50 flex w-full flex-col gap-3 rounded-[20px] bg-white p-4 !important;
+		@apply absolute left-0 top-16 z-50 flex w-full flex-col gap-3 rounded-[20px] bg-white dark:bg-dark-200 p-4 transition-colors !important;
 	}
 	.empty-result {
-		@apply body-2 text-center text-light-100 !important;
+		@apply body-2 text-center text-light-100 dark:text-light-300 !important;
 	}
 
 	/* Sidebar */
 	.sidebar {
-		@apply remove-scrollbar hidden h-screen w-[90px] flex-col overflow-auto px-5 py-7 sm:flex lg:w-[280px] xl:w-[325px] !important;
+		@apply remove-scrollbar hidden h-screen w-[90px] flex-col overflow-auto px-5 py-7 sm:flex lg:w-[280px] xl:w-[325px] bg-white dark:bg-dark-200 transition-colors !important;
 	}
 	.sidebar-nav {
 		@apply h5 mt-9 flex-1 gap-1 text-brand !important;
 	}
 	.sidebar-nav-item {
-		@apply flex text-light-100 gap-4 rounded-xl lg:w-full justify-center lg:justify-start items-center h5 lg:px-[30px] h-[52px] lg:rounded-full !important;
+		@apply flex text-light-100 dark:text-light-300 gap-4 rounded-xl lg:w-full justify-center lg:justify-start items-center h5 lg:px-[30px] h-[52px] lg:rounded-full transition-all duration-200 !important;
 	}
 	.sidebar-user-info {
-		@apply mt-4 flex items-center justify-center gap-2 rounded-full bg-brand/10 p-1 text-light-100 lg:justify-start lg:p-3 !important;
+		@apply mt-4 flex items-center justify-center gap-2 rounded-full bg-brand/10 p-1 text-light-100 dark:text-light-300 lg:justify-start lg:p-3 !important;
 	}
 	.sidebar-user-avatar {
 		@apply aspect-square w-10 rounded-full object-cover !important;
@@ -435,20 +441,16 @@
 		@apply bg-brand text-white shadow-drop-2 !important;
 	}
 
-	.sidebar-nav-item {
-		@apply transition-all duration-200;
-	}
-
 	.sidebar-nav-item:hover:not(.shad-active) {
-		@apply bg-brand/5 scale-105;
+		@apply bg-brand/5 dark:bg-light-300/5 scale-105;
 	}
 
 	/* Sort */
 	.sort-select {
-		@apply shad-no-focus h-11 w-full rounded-[8px] border-transparent bg-white !shadow-sm sm:w-[210px] !important;
+		@apply shad-no-focus h-11 w-full rounded-[8px] border-transparent bg-white dark:bg-dark-200 !shadow-sm sm:w-[210px] transition-colors !important;
 	}
 	.sort-select-content {
-		@apply !shadow-drop-3 !important;
+		@apply !shadow-drop-3 bg-white dark:bg-dark-200 !important;
 	}
 
 	/* Thumbnail */

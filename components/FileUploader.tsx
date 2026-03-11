@@ -11,6 +11,7 @@ import { MAX_FILE_SIZE } from "@/constants";
 import { usePathname } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { uploadFile } from "@/lib/actions/file.actions";
+import { useTheme } from "next-themes";
 
 interface Props {
 	ownerId: string;
@@ -22,6 +23,12 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
 	const path = usePathname();
 	const { toast } = useToast();
 	const [files, setFiles] = useState<File[]>([]);
+	const { theme } = useTheme();
+	const [mounted, setMounted] = React.useState(false);
+
+	React.useEffect(() => {
+		setMounted(true);
+	}, []);
 
 	const onDrop = useCallback(
 		async (acceptedFiles: File[]) => {
@@ -30,7 +37,7 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
 			const uploadPromises = acceptedFiles.map(async (file) => {
 				if (file.size > MAX_FILE_SIZE) {
 					setFiles((prevFiles) =>
-						prevFiles.filter((f) => f.name !== file.name)
+						prevFiles.filter((f) => f.name !== file.name),
 					);
 
 					return toast({
@@ -50,27 +57,27 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
 					(uploadedFile) => {
 						if (uploadedFile) {
 							setFiles((prevFiles) =>
-								prevFiles.filter((f) => f.name !== file.name)
+								prevFiles.filter((f) => f.name !== file.name),
 							);
 						}
-					}
+					},
 				);
 			});
 
 			await Promise.all(uploadPromises);
 		},
-		[ownerId, accountId, path]
+		[ownerId, accountId, path, toast],
 	);
 
 	const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
 	const handleRemoveFile = (
 		e: React.MouseEvent<HTMLImageElement, MouseEvent>,
-		fileName: string
+		fileName: string,
 	) => {
 		e.stopPropagation();
 		setFiles((prevFiles) =>
-			prevFiles.filter((file) => file.name !== fileName)
+			prevFiles.filter((file) => file.name !== fileName),
 		);
 	};
 
@@ -116,15 +123,23 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
 									</div>
 								</div>
 
-								<Image
-									src="/assets/icons/remove.svg"
-									width={24}
-									height={24}
-									alt="Remove"
-									onClick={(e) =>
-										handleRemoveFile(e, file.name)
-									}
-								/>
+								{mounted ? (
+									<Image
+										src={
+											theme === "dark"
+												? "/assets/icons/remove-dark.svg"
+												: "/assets/icons/remove.svg"
+										}
+										width={24}
+										height={24}
+										alt="Remove"
+										onClick={(e) =>
+											handleRemoveFile(e, file.name)
+										}
+									/>
+								) : (
+									<div className="w-6 h-6" />
+								)}
 							</li>
 						);
 					})}
