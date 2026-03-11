@@ -254,6 +254,7 @@
 	.summary-type-title {
 		@apply h5 relative z-20 text-center !important;
 	}
+
 	.dashboard-recent-files {
 		@apply h-full rounded-[20px] bg-white dark:bg-dark-200 p-5 xl:p-8 transition-colors !important;
 	}

@@ -117,7 +117,8 @@ export const formatDateTime = (isoString: string | null | undefined) => {
 
 export const getFileIcon = (
 	extension: string | undefined,
-	type: FileType | string
+	type: FileType | string,
+	isDark: boolean = true, // Changed default to true
 ) => {
 	switch (extension) {
 		// Document
@@ -133,10 +134,14 @@ export const getFileIcon = (
 			return "/assets/icons/file-txt.svg";
 		case "xls":
 		case "xlsx":
-			return "/assets/icons/file-document.svg";
+			return isDark
+				? "/assets/icons/file-document-dark.svg"
+				: "/assets/icons/file-document-light.svg";
 		// Image
 		case "svg":
-			return "/assets/icons/file-image.svg";
+			return isDark
+				? "/assets/icons/file-image-dark.svg"
+				: "/assets/icons/file-image-light.svg";
 		// Video
 		case "mkv":
 		case "mov":
@@ -147,7 +152,9 @@ export const getFileIcon = (
 		case "webm":
 		case "m4v":
 		case "3gp":
-			return "/assets/icons/file-video.svg";
+			return isDark
+				? "/assets/icons/file-video-dark.svg"
+				: "/assets/icons/file-video-light.svg";
 		// Audio
 		case "mp3":
 		case "mpeg":
@@ -164,15 +171,23 @@ export const getFileIcon = (
 		default:
 			switch (type) {
 				case "image":
-					return "/assets/icons/file-image.svg";
+					return isDark
+						? "/assets/icons/file-image-dark.svg"
+						: "/assets/icons/file-image-light.svg";
 				case "document":
-					return "/assets/icons/file-document.svg";
+					return isDark
+						? "/assets/icons/file-document-dark.svg"
+						: "/assets/icons/file-document-light.svg";
 				case "video":
-					return "/assets/icons/file-video.svg";
+					return isDark
+						? "/assets/icons/file-video-dark.svg"
+						: "/assets/icons/file-video-light.svg";
 				case "audio":
 					return "/assets/icons/file-audio.svg";
 				default:
-					return "/assets/icons/file-other.svg";
+					return isDark
+						? "/assets/icons/file-other-dark.svg"
+						: "/assets/icons/file-other-light.svg";
 			}
 	}
 };
@@ -188,20 +203,24 @@ export const constructDownloadUrl = (bucketFileId: string) => {
 };
 
 // DASHBOARD UTILS
-export const getUsageSummary = (totalSpace: any) => {
+export const getUsageSummary = (totalSpace: any, isDark: boolean = true) => {
 	return [
 		{
 			title: "Documents",
 			size: totalSpace.document.size,
 			latestDate: totalSpace.document.latestDate,
-			icon: "/assets/icons/file-document-light.svg",
+			icon: isDark
+				? "/assets/icons/file-document-dark.svg"
+				: "/assets/icons/file-document-light.svg",
 			url: "/documents",
 		},
 		{
 			title: "Images",
 			size: totalSpace.image.size,
 			latestDate: totalSpace.image.latestDate,
-			icon: "/assets/icons/file-image-light.svg",
+			icon: isDark
+				? "/assets/icons/file-image-dark.svg"
+				: "/assets/icons/file-image-light.svg",
 			url: "/images",
 		},
 		{
@@ -211,14 +230,18 @@ export const getUsageSummary = (totalSpace: any) => {
 				totalSpace.video.latestDate > totalSpace.audio.latestDate
 					? totalSpace.video.latestDate
 					: totalSpace.audio.latestDate,
-			icon: "/assets/icons/file-video-light.svg",
+			icon: isDark
+				? "/assets/icons/file-video-dark.svg"
+				: "/assets/icons/file-video-light.svg",
 			url: "/media",
 		},
 		{
 			title: "Others",
 			size: totalSpace.other.size,
 			latestDate: totalSpace.other.latestDate,
-			icon: "/assets/icons/file-other-light.svg",
+			icon: isDark
+				? "/assets/icons/file-other-dark.svg"
+				: "/assets/icons/file-other-light.svg",
 			url: "/others",
 		},
 	];
