@@ -89,7 +89,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
 										</FormLabel>
 										<FormControl>
 											<Input
-												placeholder="Enter you full name."
+												placeholder="Enter you full name"
 												className="shad-input"
 												{...field}
 											/>
@@ -152,7 +152,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
 						</p>
 						<Link
 							href={type === "sign-in" ? "/sign-up" : "/sign-in"}
-							className="ml-1 font-medium text-brand"
+							className="ml-1 font-medium text-brand dark:text-light-200"
 						>
 							{type === "sign-in" ? "Sign Up" : "Sign In"}
 						</Link>

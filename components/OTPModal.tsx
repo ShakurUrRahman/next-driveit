@@ -66,12 +66,12 @@ const OtpModal = ({
 							width={20}
 							height={20}
 							onClick={() => setIsOpen(false)}
-							className="otp-close-button"
+							className="otp-close-button cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95"
 						/>
 					</AlertDialogTitle>
-					<AlertDialogDescription className="subtitle-2 text-center text-light-100">
+					<AlertDialogDescription className="subtitle-2 text-center text-light-100 dark:text-light-200">
 						We&apos;ve sent a code to{" "}
-						<span className="pl-1 text-brand">{email}</span>
+						<span className="pl-1 text-brand-100">{email}</span>
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<InputOTP maxLength={6} value={password} onChange={setPassword}>
@@ -103,12 +103,12 @@ const OtpModal = ({
 							)}
 						</AlertDialogAction>
 
-						<div className="subtitle-2 mt-2 text-center text-light-100">
+						<div className="subtitle-2 mt-2 text-center text-light-100 dark:text-light-200/50">
 							Didn&apos;t get a code?
 							<Button
 								type="button"
 								variant="link"
-								className="pl-1 text-brand"
+								className="pl-1 text-brand dark:text-brand-100/60"
 								onClick={handleResendOtp}
 							>
 								Click to resend
