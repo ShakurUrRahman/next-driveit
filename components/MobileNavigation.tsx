@@ -67,7 +67,9 @@ const MobileNavigation = ({
 				)}
 			</div>
 			<div className="flex justify-between items-center gap-3">
-				<ThemeToggle />
+				<div className="mt-1">
+					<ThemeToggle />
+				</div>
 				<Sheet open={open} onOpenChange={setOpen}>
 					<SheetTrigger>
 						<Image

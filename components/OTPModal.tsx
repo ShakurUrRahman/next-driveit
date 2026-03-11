@@ -45,9 +45,11 @@ const OtpModal = ({
 			if (sessionId) router.push("/");
 		} catch (error) {
 			console.log("Failed to verify OTP", error);
+			setIsLoading(false); // Re-enable button on error
 		}
 
-		setIsLoading(false);
+		// Note: Don't set isLoading to false if navigation is successful
+		// The page will redirect anyway
 	};
 
 	const handleResendOtp = async () => {
@@ -74,7 +76,12 @@ const OtpModal = ({
 						<span className="pl-1 text-brand-100">{email}</span>
 					</AlertDialogDescription>
 				</AlertDialogHeader>
-				<InputOTP maxLength={6} value={password} onChange={setPassword}>
+				<InputOTP
+					maxLength={6}
+					value={password}
+					onChange={setPassword}
+					disabled={isLoading}
+				>
 					<InputOTPGroup className="shad-otp">
 						<InputOTPSlot index={0} className="shad-otp-slot" />
 						<InputOTPSlot index={1} className="shad-otp-slot" />
@@ -88,10 +95,11 @@ const OtpModal = ({
 					<div className="flex w-full flex-col gap-4">
 						<AlertDialogAction
 							onClick={handleSubmit}
-							className="shad-submit-btn h-12"
+							className="shad-submit-btn h-12 disabled:opacity-50 disabled:cursor-not-allowed"
 							type="button"
+							disabled={isLoading || password.length !== 6}
 						>
-							Submit
+							{isLoading ? "Submitting..." : "Submit"}
 							{isLoading && (
 								<Image
 									src="/assets/icons/loader.svg"
@@ -108,8 +116,9 @@ const OtpModal = ({
 							<Button
 								type="button"
 								variant="link"
-								className="pl-1 text-brand dark:text-brand-100/60"
+								className="pl-1 text-brand dark:text-brand-100/60 disabled:opacity-50"
 								onClick={handleResendOtp}
+								disabled={isLoading}
 							>
 								Click to resend
 							</Button>
