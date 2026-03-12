@@ -1,7 +1,17 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
+	const { theme } = useTheme();
+	const [mounted, setMounted] = React.useState(false);
+
+	React.useEffect(() => {
+		setMounted(true);
+	}, []);
+
 	return (
 		<div className="flex min-h-screen">
 			<section className="hidden w-1/2 items-center justify-center bg-brand p-10 lg:flex xl:w-2/5">
@@ -33,13 +43,21 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
 			<section className="flex flex-1 flex-col items-center bg-white dark:bg-dark-100 p-4 py-10 lg:justify-center lg:p-10 lg:py-0 transition-colors">
 				<div className="mb-16 lg:hidden">
-					<Image
-						src="/assets/icons/Group2.png"
-						alt="logo"
-						width={224}
-						height={82}
-						className="h-auto w-[200px] lg:w-[250px]"
-					/>
+					{mounted ? (
+						<Image
+							src={
+								theme === "dark"
+									? "/assets/icons/Group2.png"
+									: "/assets/icons/Group1.png"
+							}
+							alt="logo"
+							width={224}
+							height={82}
+							className="h-auto w-[200px] lg:w-[250px]"
+						/>
+					) : (
+						<div className="h-[82px] w-[200px] lg:w-[250px]" />
+					)}
 				</div>
 
 				{children}

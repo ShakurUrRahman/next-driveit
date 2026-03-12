@@ -67,7 +67,7 @@ const MobileNavigation = ({
 				)}
 			</div>
 			<div className="flex justify-between items-center gap-3">
-				<div className="mt-1">
+				<div className="my-2">
 					<ThemeToggle />
 				</div>
 				<Sheet open={open} onOpenChange={setOpen}>

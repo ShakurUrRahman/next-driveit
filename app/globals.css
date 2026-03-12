@@ -246,7 +246,7 @@
 		@apply relative mt-6 rounded-[20px] bg-white dark:bg-dark-200 p-5 transition-all hover:scale-105 !important;
 	}
 	.summary-type-icon {
-		@apply absolute -left-3 top-[-25px] z-10 w-[190px] object-contain !important;
+		@apply absolute -left-3 top-[-25px] z-10 object-contain !important;
 	}
 	.summary-type-size {
 		@apply h4 relative z-20 w-full text-right !important;
@@ -391,7 +391,7 @@
 
 	/* Header */
 	.header {
-		@apply hidden items-center justify-between gap-5 p-5 sm:flex lg:py-7 xl:gap-10 !important;
+		@apply hidden items-center justify-between gap-5 py-5 pr-5 pl-0 sm:flex lg:py-7 xl:gap-10 !important;
 	}
 	.header-wrapper {
 		@apply flex-center min-w-fit gap-4 !important;
