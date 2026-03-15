@@ -113,7 +113,7 @@ const Search = () => {
 						{results.length > 0 ? (
 							results.map((file) => (
 								<li
-									className="flex items-center justify-between"
+									className="flex items-center justify-between px-4 py-3 -mx-4 rounded-lg dark:hover:bg-black hover:bg-light-300 transition-colors cursor-pointer"
 									key={file.$id}
 									onClick={() => handleClickItem(file)}
 								>
@@ -124,14 +124,14 @@ const Search = () => {
 											url={file.url}
 											className="size-9 min-w-9"
 										/>
-										<p className="subtitle-2 line-clamp-1 text-light-100">
+										<p className="subtitle-2 line-clamp-1 text-light-100 dark:text-light-300">
 											{file.name}
 										</p>
 									</div>
 
 									<FormattedDateTime
 										date={file.$createdAt}
-										className="caption line-clamp-1 text-light-200"
+										className="caption line-clamp-1 text-light-200 dark:text-light-300"
 									/>
 								</li>
 							))
