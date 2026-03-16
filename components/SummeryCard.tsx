@@ -24,7 +24,7 @@ const SummeryCard = ({ summary }) => {
 					</div>
 
 					<h5 className="summary-type-title">{summary?.title}</h5>
-					<Separator className="bg-light-400 dark:bg-dark-100" />
+					<Separator className="bg-light-400 dark:bg-dark-200" />
 					<FormattedDateTime
 						date={summary?.latestDate}
 						className="text-center text-light-100 dark:text-light-300"
