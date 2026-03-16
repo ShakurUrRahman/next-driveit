@@ -38,6 +38,7 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
 	const [name, setName] = useState(file.name);
 	const [isLoading, setIsLoading] = useState(false);
 	const [emails, setEmails] = useState<string[]>([]);
+	const [error, setError] = useState("");
 
 	const path = usePathname();
 
@@ -46,11 +47,60 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
 		setIsDropdownOpen(false);
 		setAction(null);
 		setName(file.name);
+		setError("");
 		//   setEmails([]);
+	};
+
+	// Email validation function
+	const isValidEmail = (email: string) => {
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailRegex.test(email);
+	};
+
+	// Validation function
+	const validateAction = () => {
+		if (!action) return false;
+
+		// Validate rename: name must not be empty and must be different from original
+		if (action.value === "rename") {
+			const trimmedName = name.trim();
+			if (!trimmedName) {
+				setError("File name cannot be empty");
+				return false;
+			}
+			if (trimmedName === file.name) {
+				setError("Please enter a different name");
+				return false;
+			}
+		}
+
+		// Validate share: must have at least one valid email
+		if (action.value === "share") {
+			if (emails.length === 0) {
+				setError("Please add at least one email address");
+				return false;
+			}
+			const invalidEmails = emails.filter(
+				(email) => !isValidEmail(email),
+			);
+			if (invalidEmails.length > 0) {
+				setError(`Invalid email address: ${invalidEmails[0]}`);
+				return false;
+			}
+		}
+
+		setError("");
+		return true;
 	};
 
 	const handleAction = async () => {
 		if (!action) return;
+
+		// Validate before proceeding
+		if (!validateAction()) {
+			return;
+		}
+
 		setIsLoading(true);
 		let success = false;
 
@@ -58,7 +108,7 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
 			rename: () =>
 				renameFile({
 					fileId: file.$id,
-					name,
+					name: name.trim(),
 					extension: file.extension,
 					path,
 				}),
@@ -99,23 +149,38 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
 		return (
 			<DialogContent className="shad-dialog button">
 				<DialogHeader className="flex flex-col gap-3">
-					<DialogTitle className="text-center text-light-100">
+					<DialogTitle className="text-center text-light-100 dark:text-light-300">
 						{label}
 					</DialogTitle>
 					{value === "rename" && (
-						<Input
-							type="text"
-							value={name}
-							onChange={(e) => setName(e.target.value)}
-						/>
+						<div className="flex flex-col gap-2">
+							<Input
+								type="text"
+								value={name}
+								onChange={(e) => {
+									setName(e.target.value);
+									setError("");
+								}}
+								className="rename-input-field"
+								placeholder="Enter new file name"
+							/>
+							{error && (
+								<p className="text-red text-sm">{error}</p>
+							)}
+						</div>
 					)}
 					{value === "details" && <FileDetails file={file} />}
 					{value === "share" && (
-						<ShareInput
-							file={file}
-							onInputChange={setEmails}
-							onRemove={handleRemoveUser}
-						/>
+						<div className="flex flex-col gap-2">
+							<ShareInput
+								file={file}
+								onInputChange={setEmails}
+								onRemove={handleRemoveUser}
+							/>
+							{error && (
+								<p className="text-red text-sm">{error}</p>
+							)}
+						</div>
 					)}
 					{value === "delete" && (
 						<p className="delete-confirmation">
@@ -138,6 +203,7 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
 						<Button
 							onClick={handleAction}
 							className="modal-submit-button"
+							disabled={isLoading}
 						>
 							<p className="capitalize">{value}</p>
 							{isLoading && (
@@ -197,7 +263,7 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
 							{actionItem.value === "download" ? (
 								<Link
 									href={constructDownloadUrl(
-										file.bucketFileId
+										file.bucketFileId,
 									)}
 									download={file.name}
 									className="flex items-center gap-2"

@@ -53,7 +53,7 @@ export const ShareInput = ({ file, onInputChange, onRemove }: Props) => {
 			<ImageThumbnail file={file} />
 
 			<div className="share-wrapper">
-				<p className="subtitle-2 pl-1 text-light-100">
+				<p className="subtitle-2 pl-1 text-light-200">
 					Share file with other users
 				</p>
 				<Input
@@ -66,7 +66,7 @@ export const ShareInput = ({ file, onInputChange, onRemove }: Props) => {
 				/>
 				<div className="pt-4">
 					<div className="flex justify-between">
-						<p className="subtitle-2 text-light-100">Shared with</p>
+						<p className="subtitle-2 text-light-200">Shared with</p>
 						<p className="subtitle-2 text-light-200">
 							{file.users.length} users
 						</p>

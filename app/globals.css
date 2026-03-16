@@ -287,7 +287,7 @@
 
 	/* ActionsDropdown */
 	.rename-input-field {
-		@apply body-2 shad-no-focus h-[52px] w-full rounded-full border px-4 shadow-drop-1 dark:bg-dark-200 !important;
+		@apply body-2 shad-no-focus h-[52px] w-full rounded-full border px-4 shadow-drop-1 dark:bg-dark-100 !important;
 	}
 	.delete-confirmation {
 		@apply text-center text-light-100 dark:text-light-300 !important;
@@ -296,10 +296,10 @@
 		@apply font-medium text-brand-100 !important;
 	}
 	.modal-cancel-button {
-		@apply h-[52px] flex-1 rounded-full bg-white dark:bg-dark-100 text-light-100 dark:text-light-300 hover:bg-transparent !important;
+		@apply h-[52px] flex-1 rounded-full dark:text-light-300 dark:bg-dark-100 hover:dark:bg-light-100 !important;
 	}
 	.modal-submit-button {
-		@apply dark:text-light-300 !mx-0 h-[52px] w-full flex-1 !important;
+		@apply dark:text-light-300 dark:bg-dark-100 rounded-full hover:dark:bg-light-100 !mx-0 h-[52px] w-full flex-1 !important;
 	}
 
 	/* ActionsModalContent */
@@ -317,7 +317,7 @@
 		@apply !mt-2 space-y-2 !important;
 	}
 	.share-input-field {
-		@apply body-2 shad-no-focus h-[52px] w-full rounded-full border px-4 shadow-drop-1 dark:bg-dark-200 !important;
+		@apply body-2 shad-no-focus h-[52px] w-full rounded-full border px-4 shadow-drop-1 dark:bg-dark-100 !important;
 	}
 	.share-remove-user {
 		@apply rounded-full bg-transparent text-light-100 dark:text-light-300 shadow-none hover:bg-transparent !important;
@@ -477,7 +477,7 @@
 
 	/* Sort */
 	.sort-select {
-		@apply shad-no-focus h-11 w-full rounded-[8px] border-transparent bg-white dark:bg-dark-200 !shadow-sm sm:w-[210px] transition-colors !important;
+		@apply shad-no-focus h-11 w-full rounded-[8px] border-transparent bg-white dark:bg-dark-100 !shadow-sm sm:w-[210px] transition-colors !important;
 	}
 	.sort-select-content {
 		@apply !shadow-drop-3 bg-white dark:bg-dark-200 !important;
