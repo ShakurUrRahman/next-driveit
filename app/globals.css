@@ -342,7 +342,7 @@
 
 	/* Card */
 	.file-card {
-		@apply flex cursor-pointer flex-col gap-6 rounded-[18px] bg-white dark:bg-dark-200 p-5 shadow-sm transition-all hover:shadow-drop-3 !important;
+		@apply flex cursor-pointer flex-col gap-6 rounded-[18px] bg-white dark:bg-dark-100 p-5 shadow-sm transition-all hover:shadow-drop-3 !important;
 	}
 	.file-card-details {
 		@apply flex flex-col gap-2 text-light-100 dark:text-light-300 !important;
