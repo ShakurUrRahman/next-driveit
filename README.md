@@ -110,14 +110,6 @@ next-drive-clone/
 └── constants/            # App-wide constants
 ```
 
----
-
-## 📄 License
-
-This project is open source and available under the [MIT License](./LICENSE).
-
----
-
 <div align="center">
   <p>Built by <a href="https://shakur.netlify.app">Shakur</a></p>
 </div>
