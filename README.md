@@ -119,5 +119,5 @@ This project is open source and available under the [MIT License](./LICENSE).
 ---
 
 <div align="center">
-  <p>Built by <a href="https://your-portfolio-url.com">Shakur</a></p>
+  <p>Built by <a href="https://shakur.netlify.app">Shakur</a></p>
 </div>
